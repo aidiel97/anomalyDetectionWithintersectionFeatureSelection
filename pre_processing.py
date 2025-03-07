@@ -3,16 +3,16 @@ from sklearn.preprocessing import LabelEncoder
 categorical_cols = ["proto", "service", "state"]
 
 def cleansing(train, test):
-    ctx = "|Data Cleansing|"
+    ctx = "| Data Cleansing |"
     # data cleansing -> tidak perlu karena tidak ada data null
     # print(train.isnull().sum()) # tidak ada null
     # print(test.isnull().sum()) # tidak ada null
 
-    print(f"{ctx} Tidak perlu dilakukan karena tidak ada data null")
+    print(f"\n{ctx} Tidak perlu dilakukan karena tidak ada data null")
     return train, test
 
 def normalization(train, test):
-    ctx = "|Data Normalization|"
+    ctx = "| Data Normalization |"
     label_encoders = {} # Dictionary untuk menyimpan encoder setiap kolom
 
     for col in categorical_cols:
@@ -35,5 +35,5 @@ def normalization(train, test):
     y_test = test["label"]
 
     
-    print(f"{ctx} Done!")
+    print(f"\n{ctx} Done!")
     return X_train, X_test, y_train, y_test

@@ -2,7 +2,7 @@ from scipy.stats import kendalltau
 from sklearn.feature_selection import SelectKBest, f_classif
 
 def pearsonCorrelation(X_train, y_train, k_value):
-    ctx = "|Pearson Correlation Feature Selection|"
+    ctx = "| Pearson Correlation Feature Selection |"
     # pearson corr (FS)
     # Pilih 20 (dibuat flexible) fitur terbaik berdasarkan Pearson
     selector = SelectKBest(score_func=f_classif, k=k_value)
@@ -12,11 +12,11 @@ def pearsonCorrelation(X_train, y_train, k_value):
     pearson_feature_indices = selector.get_support(indices=True)
     pearson_features = X_train.columns[pearson_feature_indices]
 
-    print(f"{ctx}Fitur terpilih:", pearson_features.tolist())
+    print(f"\n{ctx}\n Fitur terpilih:", pearson_features.tolist())
     return pearson_features.tolist()
 
 def kendallCorrelation(pd, X_train, y_train, k_value):
-    ctx = "|Kendall Correlation Feature Selection|"
+    ctx = "| Kendall Correlation Feature Selection |"
     kendall_corr = {col: kendalltau(X_train[col], y_train)[0] for col in X_train.columns}
     kendall_corr_df = pd.DataFrame(kendall_corr.items(), columns=["Feature", "Kendall Tau"])
 
@@ -25,12 +25,12 @@ def kendallCorrelation(pd, X_train, y_train, k_value):
     kendall_corr_df = kendall_corr_df.sort_values(by="abs_tau", ascending=False)
     kendall_features = kendall_corr_df["Feature"].head(k_value).tolist()
 
-    print(f"{ctx}Fitur terpilih:", kendall_features)
+    print(f"\n{ctx}\n Fitur terpilih:", kendall_features)
     return kendall_features
 
 def intersection(pearson_features, kendall_features):
-    ctx = "|Intersection Correlation Feature Selection|"
+    ctx = "| Intersection Correlation Feature Selection |"
     intersection = list(set(pearson_features) & set(kendall_features))
-    print(f"{ctx}Fitur yang beririsan:",intersection)
+    print(f"\n{ctx}\n Fitur yang beririsan:",intersection)
 
     return intersection
